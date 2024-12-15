@@ -1,3 +1,12 @@
 #answer {
   width: 50%;
 }
+
+#box-row {
+  display: flex;
+}
+
+.box {
+  background-color: red;
+
+}
