@@ -4,10 +4,14 @@ let typeEl;
 let valueEl;
 let answerTypeEl;
 let answerValueEl;
-let type = "Linked!";
-let value = "Linked!";
-let answerType = "Linked!";
+let type;
+let value;
+let answerType;
 let answerValue;
+
+let currentBinary;
+let currentHex;
+let currentDecimal;
 
 function init() {
   typeEl = document.getElementById("type");
@@ -15,10 +19,10 @@ function init() {
   answerTypeEl = document.getElementById("answerType");
   answerValueEl = document.getElementById("answerValue");
 
-  setQuestion();
+  resetProblem();
 }
 
-function setQuestion() {
+function resetProblem() {
   let remainingTypes = types;
 
   // get random type from array
@@ -31,10 +35,23 @@ function setQuestion() {
   typeIndex = Math.floor(Math.random() * remainingTypes.length);
   answerType = remainingTypes[typeIndex];
 
-  // create random value of chosen type
-  value = getRandomBinary();
-  console.log(`Decimal: ${parseInt(value, 2)}`);          // get decimal equivalent
-  console.log(`Hex: ${parseInt(value, 2).toString(16)}`); // get hexadecimal equivalent
+  // generate random value and conversions
+  currentBinary = getRandomBinary();
+  currentDecimal = parseInt(currentBinary, 2);
+  currentHex = currentDecimal.toString(16);
+
+  // log all values
+  console.log(`Binary: ${currentBinary}`);
+  console.log(`Decimal: ${currentDecimal}`);
+  console.log(`Hex: ${currentHex}`);
+
+  if (type === "binary") {
+    value = currentBinary;
+  } else if (type === "decimal") {
+    value = currentDecimal;
+  } else {
+    value = currentHex;
+  }
 
   // update HTML elements
   typeEl.innerText = type;
@@ -42,7 +59,7 @@ function setQuestion() {
   answerTypeEl.innerText = answerType;
 }
 
-// Get random byte of binary (as string)
+// Get string of 8 bits
 function getRandomBinary(length = 8) {
   let byte = ""
 
