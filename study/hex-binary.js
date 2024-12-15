@@ -31,10 +31,26 @@ function setQuestion() {
   typeIndex = Math.floor(Math.random() * remainingTypes.length);
   answerType = remainingTypes[typeIndex];
 
+  // create random value of chosen type
+  value = getRandomBinary();
+  console.log(`Decimal: ${parseInt(value, 2)}`);          // get decimal equivalent
+  console.log(`Hex: ${parseInt(value, 2).toString(16)}`); // get hexadecimal equivalent
+
   // update HTML elements
   typeEl.innerText = type;
   valueEl.innerText = value;
   answerTypeEl.innerText = answerType;
+}
+
+// Get random byte of binary (as string)
+function getRandomBinary(length = 8) {
+  let byte = ""
+
+  for (let i = 0; i < length; i++) {
+    byte += Math.round(Math.random()).toString();
+  }
+
+  return byte;
 }
 
 window.addEventListener("load", init);
